@@ -1,0 +1,23 @@
+<header class="sticky top-0 z-50 bg-[#F3F3F1]/80 backdrop-blur-md border-b border-gray-200/50">
+    <nav class="flex px-6 lg:px-12 py-6 items-center justify-between">
+        <!-- Logo -->
+        <div class="flex items-center gap-1 group cursor-pointer">
+            <div class="h-6 w-2 bg-black rounded-full transition-all group-hover:h-8"></div>
+            <div class="h-6 w-2 bg-black rounded-full transition-all group-hover:h-4"></div>
+            <div class="h-6 w-2 bg-black rounded-full transition-all group-hover:h-8"></div>
+            <a href="{% url 'home' %}"><span class="ml-2 font-bold tracking-tighter text-xl">Matheus Hack</span></a>
+        </div>
+        
+        <!-- Nav Links -->
+        <div class="hidden md:flex items-center gap-8">
+            <a href="{% url 'projects' %}" class="text-[0.7rem] font-medium uppercase tracking-[0.2em] text-gray-500 hover:text-black transition-colors">Projetos</a>
+            <a href="{% url 'sobre' %}" class="text-[0.7rem] font-medium uppercase tracking-[0.2em] text-gray-500 hover:text-black transition-colors">Sobre</a>
+            <a href="{% url 'contact' %}" class="text-[0.7rem] font-medium uppercase tracking-[0.2em] text-gray-500 hover:text-black transition-colors">Contato</a>
+        </div>
+
+        <!-- CTA Button -->
+        <a href="{% url 'contact' %}" class="bg-black text-white text-[0.7rem] font-semibold uppercase tracking-widest px-6 py-3 rounded-full hover:bg-gray-800 transition-all shadow-lg hover:scale-105 active:scale-95">
+            Vamos Conversar
+        </a>
+    </nav>
+</header>

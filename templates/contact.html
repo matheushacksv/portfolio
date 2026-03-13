@@ -1,0 +1,198 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contato - Matheus Hack{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section class="lg:px-16 xl:px-24 pt-24 pb-12 pr-8 pl-8 border-b border-gray-200/50">
+    <div class="flex flex-col gap-2" x-data="{ visible: false }" x-intersect.once="visible = true">
+        <span class="text-[0.65rem] font-semibold uppercase tracking-[0.25em] text-gray-400 transition-all duration-700 transform" :class="visible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'">Vamos conversar</span>
+        <h1 class="text-5xl lg:text-7xl font-semibold tracking-tighter text-[#0A0A0A] transition-all duration-700 delay-100 transform" :class="visible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'">
+            CONTATO
+        </h1>
+    </div>
+</section>
+
+<!-- Main Contact Section -->
+<section class="lg:px-16 xl:px-24 pr-8 pl-8 py-20 flex flex-col lg:grid lg:grid-cols-12 gap-16 xl:gap-24">
+    
+    <!-- Left: Contact Form -->
+    <div class="lg:col-span-7" x-data="{ 
+        sending: false, 
+        success: false,
+        submitForm() {
+            this.sending = true;
+            // Simulando o processo assíncrono (Celery + Background Task)
+            setTimeout(() => {
+                this.sending = false;
+                this.success = true;
+                this.$refs.contactForm.reset();
+            }, 3000);
+        }
+    }">
+        <div class="mb-10">
+            <h2 class="text-3xl font-medium tracking-tight text-gray-900 mb-4">Envie uma mensagem</h2>
+            <p class="text-gray-500 leading-relaxed max-w-lg">
+                Preencha o formulário abaixo. Sua mensagem será processada instantaneamente através de uma <span class="text-blue-600 font-medium">pipeline assíncrona</span> otimizada.
+            </p>
+        </div>
+
+        <form x-ref="contactForm" @submit.prevent="submitForm" class="space-y-6 relative">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Name -->
+                <div class="flex flex-col gap-2">
+                    <label for="name" class="text-[0.65rem] font-bold uppercase tracking-widest text-gray-400">Nome Completo</label>
+                    <input type="text" id="name" name="name" required placeholder="Ex: João Silva" 
+                        class="px-6 py-4 rounded-2xl bg-gray-50 border border-gray-200 focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all text-sm">
+                </div>
+                <!-- Email -->
+                <div class="flex flex-col gap-2">
+                    <label for="email" class="text-[0.65rem] font-bold uppercase tracking-widest text-gray-400">Endereço de E-mail</label>
+                    <input type="email" id="email" name="email" required placeholder="joao@exemplo.com"
+                        class="px-6 py-4 rounded-2xl bg-gray-50 border border-gray-200 focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all text-sm">
+                </div>
+            </div>
+
+            <!-- Subject -->
+            <div class="flex flex-col gap-2">
+                <label for="subject" class="text-[0.65rem] font-bold uppercase tracking-widest text-gray-400">Assunto</label>
+                <select id="subject" name="subject" class="px-6 py-4 rounded-2xl bg-gray-50 border border-gray-200 focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all text-sm appearance-none cursor-pointer">
+                    <option value="project">Novo Projeto</option>
+                    <option value="consultancy">Consultoria Técnica</option>
+                    <option value="job">Oportunidade de Trabalho</option>
+                    <option value="other">Outros Assuntos</option>
+                </select>
+            </div>
+
+            <!-- Message -->
+            <div class="flex flex-col gap-2">
+                <label for="message" class="text-[0.65rem] font-bold uppercase tracking-widest text-gray-400">Sua Mensagem</label>
+                <textarea id="message" name="message" required rows="6" placeholder="Como posso te ajudar?"
+                    class="px-6 py-4 rounded-3xl bg-gray-50 border border-gray-200 focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all text-sm resize-none"></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="pt-4 overflow-hidden">
+                <button type="submit" :disabled="sending || success"
+                    class="w-full md:w-auto flex items-center justify-center gap-3 bg-[#1A1A1A] text-white px-10 py-5 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-black hover:scale-[1.02] active:scale-95 transition-all shadow-xl shadow-gray-200 disabled:opacity-50 disabled:cursor-not-allowed group">
+                    <span x-show="!sending && !success">Enviar Mensagem</span>
+                    <span x-show="sending" class="flex items-center gap-2">
+                        <svg class="animate-spin h-4 w-4 text-white" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Processando...
+                    </span>
+                    <span x-show="success">Mensagem Enviada!</span>
+                    <i data-lucide="send" class="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" x-show="!sending && !success"></i>
+                </button>
+            </div>
+
+            <!-- Success Overlay Message -->
+            <div x-show="success" x-transition:enter="transition ease-out duration-500" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0"
+                class="mt-8 p-6 rounded-3xl bg-emerald-50 border border-emerald-100 flex items-center gap-4">
+                <div class="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center shrink-0">
+                    <i data-lucide="check" class="w-5 h-5 text-white"></i>
+                </div>
+                <div>
+                    <h4 class="text-emerald-900 font-semibold text-sm">Sucesso!</h4>
+                    <p class="text-emerald-700 text-xs">Sua mensagem foi enfileirada para processamento via **Celery**. Entrarei em contato em breve!</p>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Right: Alternative Channels -->
+    <div class="lg:col-span-5 flex flex-col gap-12 lg:sticky lg:top-32 h-fit">
+        
+        <!-- Background Task Badge (Info Card) -->
+        <div class="p-8 rounded-[2.5rem] bg-[#0A0A0A] text-white shadow-2xl relative overflow-hidden group">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl group-hover:bg-blue-500/20 transition-colors"></div>
+            
+            <div class="relative z-10">
+                <div class="flex items-center gap-2 mb-4">
+                    <div class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></div>
+                    <span class="text-[0.6rem] font-bold uppercase tracking-widest text-blue-400">Stack de Processamento</span>
+                </div>
+                <h3 class="text-xl font-medium mb-4">Arquitetura de Mensageria</h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                    Este formulário utiliza <span class="text-blue-400"><b>Celery</b></span> com <span class="text-blue-400"><b>RabbitMQ</b></span> para lidar com o envio de e-mails em segundo plano, garantindo que o servidor permaneça livre e responsivo.
+                </p>
+                <div class="flex items-center gap-3">
+                    <span class="text-[0.6rem] font-semibold uppercase tracking-widest py-1.5 px-3 rounded-md bg-white/5 border border-white/10">Celery</span>
+                    <span class="text-[0.6rem] font-semibold uppercase tracking-widest py-1.5 px-3 rounded-md bg-white/5 border border-white/10">RabbitMQ</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Social Channels -->
+        <div class="space-y-6">
+            <h3 class="text-[0.65rem] font-bold uppercase tracking-widest text-gray-400">Outros Canais</h3>
+            
+            <div class="grid grid-cols-1 gap-4">
+                <!-- LinkedIn -->
+                <a href="https://www.linkedin.com/in/matheus-hack/" target="_blank" class="flex items-center justify-between p-6 rounded-2xl border border-gray-100 hover:border-blue-100 hover:bg-blue-50/30 transition-all group">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-gray-50 flex items-center justify-center border border-gray-100 group-hover:bg-blue-500 group-hover:border-blue-500 transition-all">
+                            <i data-lucide="linkedin" class="w-5 h-5 text-gray-400 group-hover:text-white transition-colors"></i>
+                        </div>
+                        <div>
+                            <p class="text-[0.6rem] font-bold uppercase tracking-widest text-gray-400 group-hover:text-blue-600 transition-colors">LinkedIn</p>
+                            <p class="text-sm font-medium text-gray-900 group-hover:translate-x-1 transition-transform">matheus-hack</p>
+                        </div>
+                    </div>
+                    <i data-lucide="external-link" class="w-4 h-4 text-gray-300 group-hover:text-blue-400"></i>
+                </a>
+
+                <!-- GitHub -->
+                <a href="https://github.com/matheushacksv" target="_blank" class="flex items-center justify-between p-6 rounded-2xl border border-gray-100 hover:border-gray-900 hover:bg-gray-50 transition-all group">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-gray-50 flex items-center justify-center border border-gray-100 group-hover:bg-black group-hover:border-black transition-all">
+                            <i data-lucide="github" class="w-5 h-5 text-gray-400 group-hover:text-white transition-colors"></i>
+                        </div>
+                        <div>
+                            <p class="text-[0.6rem] font-bold uppercase tracking-widest text-gray-400 group-hover:text-black transition-colors">GitHub</p>
+                            <p class="text-sm font-medium text-gray-900 group-hover:translate-x-1 transition-transform">matheushacksv</p>
+                        </div>
+                    </div>
+                    <i data-lucide="external-link" class="w-4 h-4 text-gray-300 group-hover:text-black"></i>
+                </a>
+
+                <!-- Email -->
+              <a href="mailto:matheushacksv@gmail.com" target="_blank" class="flex items-center justify-between p-6 rounded-2xl border border-gray-100 hover:border-gray-900 hover:bg-gray-50 transition-all group">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-gray-50 flex items-center justify-center border border-gray-100 group-hover:bg-black group-hover:border-black transition-all">
+                            <i data-lucide="mail" class="w-5 h-5 text-blue-400 group-hover:text-white transition-colors"></i>
+                        </div>
+                        <div>
+                            <p class="text-[0.6rem] font-bold uppercase tracking-widest text-gray-400 group-hover:text-black transition-colors">E-mail</p>
+                            <p class="text-sm font-medium text-gray-900 group-hover:translate-x-1 transition-transform">matheushacksv@gmail.com</p>
+                        </div>
+                    </div>
+                    <i data-lucide="external-link" class="w-4 h-4 text-gray-300 group-hover:text-black"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer CTA (Reuse from About/Projects) -->
+<section class="lg:px-16 xl:px-24 pb-24 pt-12">
+    <div class="relative overflow-hidden rounded-[2.5rem] bg-[#0A0A0A] p-12 lg:p-20 flex flex-col items-center text-center gap-8">
+        <div class="absolute inset-0 bg-gradient-to-tr from-gray-900/50 to-transparent"></div>
+        <div class="relative z-10 max-w-xl">
+            <h2 class="text-3xl lg:text-4xl font-medium tracking-tight text-white mb-4">Prefere as redes sociais?</h2>
+            <p class="text-gray-400 text-sm leading-relaxed">
+                Estou sempre ativo no LinkedIn e aberto a conexões. Sinta-se à vontade para me mandar um direct.
+            </p>
+        </div>
+        <a href="{% url 'home' %}" class="relative z-10 inline-flex items-center gap-2 text-[0.7rem] font-medium uppercase tracking-[0.2em] text-gray-400 hover:text-white transition-colors">
+            <i data-lucide="arrow-left" class="w-4 h-4"></i> Voltar ao início
+        </a>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,300 @@
+{% extends 'base.html' %}
+
+{% block title %}Projetos - Matheus Hack{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section class="grid grid-cols-1 lg:grid-cols-2 lg:min-h-[55vh]">
+    <!-- Left: Content -->
+    <div class="relative flex flex-col justify-center px-8 pb-12 pt-12 lg:px-16 xl:px-24 z-10">
+        <p class="text-[0.65rem] font-semibold uppercase tracking-[0.25em] text-gray-400 mb-6">
+            Portfólio Completo
+        </p>
+
+        <div class="relative mb-6">
+            <h1 class="text-7xl lg:text-8xl xl:text-9xl font-semibold tracking-tighter leading-[0.85] text-[#0A0A0A]">
+                TODOS<br/>OS
+            </h1>
+            <div class="absolute -bottom-4 left-0 lg:left-2 inline-flex items-center gap-2 bg-black text-white px-4 py-2 rounded-full transform -rotate-2 hover:rotate-0 transition-transform cursor-default z-20 shadow-xl">
+                <span class="text-[0.65rem] font-bold uppercase tracking-widest">Projetos &amp; Cases</span>
+            </div>
+        </div>
+
+        <div class="mt-10 max-w-lg">
+            <h2 class="text-xl font-medium tracking-tight text-gray-900 mb-4 leading-snug">
+                Uma coleção de <span class="text-blue-600">soluções reais</span> entregues com performance e atenção aos detalhes.
+            </h2>
+            <p class="text-base text-gray-500 leading-relaxed font-normal mb-8">
+                Cada projeto representa um desafio único, desde dashboards analíticos a sistemas escaláveis, sempre com foco em impacto real.
+            </p>
+            <div class="flex items-center gap-4 flex-wrap">
+                <div class="flex items-center gap-2 px-4 py-2 rounded-full bg-black/5 border border-gray-200">
+                    <span class="text-[0.65rem] font-bold uppercase tracking-widest text-gray-500">{{total_projects}} Projetos</span>
+                </div>
+                <div class="flex items-center gap-2 px-4 py-2 rounded-full bg-black/5 border border-gray-200">
+                    <span class="text-[0.65rem] font-bold uppercase tracking-widest text-gray-500">4 Categorias</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right: Visual -->
+    <div class="relative h-[45vh] lg:h-auto overflow-hidden lg:rounded-tl-[4rem] group bg-[#08090A]">
+        <!-- Animated background grid -->
+        <div class="absolute inset-0 opacity-20" style="background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 40px 40px;"></div>
+
+        <!-- Floating project cards mockup -->
+        <div class="absolute inset-0 flex items-center justify-center overflow-hidden">
+            <!-- Card 1 -->
+            <div class="absolute top-[10%] left-[5%] w-[45%] bg-white/5 border border-white/10 rounded-2xl p-4 backdrop-blur-sm transform -rotate-3 hover:rotate-0 transition-all duration-500 shadow-2xl">
+                <div class="flex gap-1.5 mb-3">
+                    <div class="w-2 h-2 rounded-full bg-red-400/70"></div>
+                    <div class="w-2 h-2 rounded-full bg-yellow-400/70"></div>
+                    <div class="w-2 h-2 rounded-full bg-green-400/70"></div>
+                </div>
+                <div class="h-2 bg-blue-400/30 rounded-full w-3/4 mb-2"></div>
+                <div class="h-2 bg-white/10 rounded-full w-full mb-2"></div>
+                <div class="h-8 bg-blue-500/20 rounded-lg border border-blue-400/20 mt-3"></div>
+            </div>
+            <!-- Card 2 -->
+            <div class="absolute top-[35%] right-[8%] w-[40%] bg-white/5 border border-white/10 rounded-2xl p-4 backdrop-blur-sm transform rotate-2 hover:rotate-0 transition-all duration-500 shadow-2xl">
+                <div class="h-2 bg-purple-400/30 rounded-full w-2/3 mb-2"></div>
+                <div class="h-2 bg-white/10 rounded-full w-full mb-2"></div>
+                <div class="grid grid-cols-2 gap-2 mt-3">
+                    <div class="h-6 bg-purple-500/20 rounded border border-purple-400/20"></div>
+                    <div class="h-6 bg-purple-500/20 rounded border border-purple-400/20"></div>
+                </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="absolute bottom-[15%] left-[15%] w-[38%] bg-white/5 border border-white/10 rounded-2xl p-4 backdrop-blur-sm transform rotate-1 hover:rotate-0 transition-all duration-500 shadow-2xl">
+                <div class="h-2 bg-emerald-400/30 rounded-full w-1/2 mb-2"></div>
+                <div class="h-2 bg-white/10 rounded-full w-3/4 mb-2"></div>
+                <div class="h-6 bg-emerald-500/20 rounded border border-emerald-400/20 mt-3"><span class="text-white">sudo rm -rf /</span></div>
+            </div>
+            <!-- Glow effects -->
+            <div class="absolute top-1/4 left-1/4 w-32 h-32 bg-blue-500/20 blur-3xl rounded-full"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-28 h-28 bg-purple-500/20 blur-3xl rounded-full"></div>
+        </div>
+
+        <!-- Floating label -->
+        <div class="absolute top-8 right-8 lg:right-12">
+            <div class="px-4 py-2 rounded-full border border-white/40 bg-white/10 backdrop-blur-xl text-white text-[0.6rem] font-semibold uppercase tracking-widest hover:bg-white/20 transition-colors cursor-default">
+                Em Constante Evolução
+            </div>
+        </div>
+
+        <!-- Floating icon -->
+        <div class="absolute bottom-10 left-8 lg:left-12">
+            <div class="flex items-center justify-center w-12 h-12 rounded-full border border-white/30 backdrop-blur-md text-white/80 animate-pulse bg-white/5">
+                <i data-lucide="code-2" class="w-5 h-5"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Filter + Projects Grid -->
+<section class="lg:px-16 xl:px-24 pt-20 pr-8 pb-32 pl-8 border-t border-gray-200/50"
+    x-data="{
+        activeFilter: 'all',
+        filters: [
+            { key: 'all', label: 'Todos' },
+            { key: 'backend', label: 'Back-end' },
+            { key: 'frontend', label: 'Front-end' },
+            { key: 'fullstack', label: 'Fullstack' },
+            { key: 'dataia', label: 'Data &amp; IA' },
+        ],
+        visibleCount: {{ total_projects }},
+        updateCount() {
+            this.$nextTick(() => {
+                const visibleEls = Array.from(document.querySelectorAll('[data-category]')).filter(el => el.style.display !== 'none');
+                this.visibleCount = visibleEls.length;
+            });
+        },
+        init() {
+            this.$watch('activeFilter', () => this.updateCount());
+        },
+        accentClasses(accent) {
+            const map = {
+                blue:    { border: 'border-blue-600',   glow: 'bg-blue-500',    badge: 'bg-blue-500/10 text-blue-700 border-blue-200',   hover: 'group-hover:text-blue-600' },
+                purple:  { border: 'border-purple-600', glow: 'bg-purple-500',  badge: 'bg-purple-500/10 text-purple-700 border-purple-200', hover: 'group-hover:text-purple-600' },
+                emerald: { border: 'border-emerald-500',glow: 'bg-emerald-500', badge: 'bg-emerald-500/10 text-emerald-700 border-emerald-200', hover: 'group-hover:text-emerald-600' },
+                orange:  { border: 'border-orange-500', glow: 'bg-orange-500',  badge: 'bg-orange-500/10 text-orange-700 border-orange-200', hover: 'group-hover:text-orange-600' },
+                gray:    { border: 'border-gray-600',   glow: 'bg-gray-500',    badge: 'bg-gray-100 text-gray-700 border-gray-200',  hover: 'group-hover:text-gray-900' },
+                indigo:  { border: 'border-indigo-600', glow: 'bg-indigo-500',  badge: 'bg-indigo-500/10 text-indigo-700 border-indigo-200', hover: 'group-hover:text-indigo-600' },
+                pink:    { border: 'border-pink-500',   glow: 'bg-pink-500',    badge: 'bg-pink-500/10 text-pink-700 border-pink-200',   hover: 'group-hover:text-pink-600' },
+                teal:    { border: 'border-teal-500',   glow: 'bg-teal-500',    badge: 'bg-teal-500/10 text-teal-700 border-teal-200',   hover: 'group-hover:text-teal-600' },
+            };
+            return map[accent] || map.gray;
+        }
+    }">
+
+    <!-- Section Header -->
+    <div class="flex flex-col gap-2 mb-12" x-data="{ v: false }" x-intersect.once="v = true">
+        <span class="text-[0.65rem] font-semibold uppercase tracking-[0.25em] text-gray-400 transition-all duration-700" :class="v ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'">Explorar</span>
+        <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 transition-all duration-700 delay-100" :class="v ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'">
+            <h2 class="text-3xl font-medium tracking-tight text-gray-900">Filtrar por Categoria</h2>
+            <p class="text-sm text-gray-400" x-text="`${visibleCount} projeto${visibleCount !== 1 ? 's' : ''} encontrado${visibleCount !== 1 ? 's' : ''}`"></p>
+        </div>
+    </div>
+
+    <!-- Filter Tabs -->
+    <div class="flex flex-wrap gap-3 mb-16">
+        <template x-for="f in filters" :key="f.key">
+            <button
+                @click="activeFilter = f.key"
+                :class="activeFilter === f.key
+                    ? 'bg-[#1A1A1A] text-white shadow-lg shadow-gray-300/50'
+                    : 'text-gray-500 hover:text-black hover:bg-gray-100'"
+                class="text-[0.7rem] font-medium uppercase tracking-widest px-6 py-3 rounded-full transition-all duration-200 border border-transparent"
+                x-html="f.label">
+            </button>
+        </template>
+    </div>
+
+    <!-- Projects Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+        {% for project in projects %}
+        <div
+            data-category="{{ project.category|lower }}"
+            x-show="activeFilter === 'all' || activeFilter === '{{ project.category|lower }}'"
+            x-transition:enter="transition ease-out duration-300 transform"
+            x-transition:enter-start="opacity-0 translate-y-4"
+            x-transition:enter-end="opacity-100 translate-y-0"
+            x-transition:leave="transition ease-in duration-200 transform absolute"
+            x-transition:leave-start="opacity-100 translate-y-0"
+            x-transition:leave-end="opacity-0 translate-y-4"
+            class="group relative bg-white/60 rounded-[2rem] overflow-hidden shadow-sm border border-gray-200/80 hover:shadow-2xl hover:shadow-gray-200/80 transition-all duration-500 hover:-translate-y-2 flex flex-col"
+            x-data="{ hovered: false, accent: '{% cycle 'blue' 'purple' 'emerald' 'orange' 'gray' 'indigo' 'pink' 'teal' as card_accent %}' }"
+            @mouseenter="hovered = true"
+            @mouseleave="hovered = false">
+
+            <!-- Featured Badge (Exemplo de condicional, ajuste conforme seu model se tiver 'featured') -->
+            {% if project.personal_rating > 8 %}
+            <div class="absolute top-4 right-4 z-20">
+                <div class="inline-flex items-center gap-1.5 bg-black text-white px-3 py-1.5 rounded-full transform -rotate-2 hover:rotate-0 transition-transform shadow-xl">
+                    <i data-lucide="star" class="w-3 h-3 fill-white"></i>
+                    <span class="text-[0.6rem] font-bold uppercase tracking-widest">Destaque</span>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Image -->
+            <div class="relative aspect-[16/9] overflow-hidden bg-gray-800">
+                <!-- Glow blob -->
+                <div class="absolute -top-[30%] -left-[20%] w-[60%] h-[60%] rounded-full blur-3xl opacity-30 transition-opacity duration-500"
+                    :class="[accentClasses(accent).glow, hovered ? 'opacity-50' : 'opacity-20']">
+                </div>
+
+                <!-- Image -->
+                {% if project.image %}
+                <img
+                    src="{{ project.image.url }}"
+                    alt="{{ project.name }}"
+                    class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-60 group-hover:opacity-90 transition-opacity duration-500 group-hover:scale-105 transition-transform duration-700">
+                {% else %}
+                <div class="absolute inset-0 w-full h-full bg-gradient-to-br from-gray-700 to-gray-900 mix-blend-overlay opacity-50"></div>
+                {% endif %}
+
+                <!-- Inner frame border -->
+                <div class="absolute inset-3 rounded-2xl border-4 opacity-60 group-hover:opacity-80 transition-opacity duration-300"
+                    :class="accentClasses(accent).border">
+                </div>
+
+                <!-- Overlay gradient -->
+                <div class="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent"></div>
+            </div>
+
+            <!-- Content -->
+            <div class="flex flex-col flex-1 p-7">
+                <!-- Tags -->
+                <div class="flex flex-wrap gap-2 mb-4">
+                    {% for tech in project.techs.all %}
+                        <span class="text-[0.6rem] font-semibold uppercase tracking-widest px-3 py-1 rounded-full border backdrop-blur-sm"
+                            :class="accentClasses(accent).badge">
+                            {{ tech.name }}
+                        </span>
+                    {% endfor %}
+                </div>
+
+                <!-- Title -->
+                <h3 class="text-xl font-medium tracking-tight text-gray-900 mb-3 transition-colors duration-300 leading-snug"
+                    :class="accentClasses(accent).hover">
+                    {{ project.name }}
+                </h3>
+
+                <!-- Description -->
+                <p class="text-sm text-gray-500 leading-relaxed mb-6 flex-1">{{ project.description|truncatewords:20 }}</p>
+
+                <!-- Actions -->
+                <div class="flex items-center gap-3 pt-4 border-t border-gray-100">
+                    {% if project.video %}
+                        <a href="{{ project.video }}" target="_blank"
+                            class="flex-1 flex items-center justify-center gap-2 bg-[#1A1A1A] text-white text-[0.65rem] font-medium uppercase tracking-widest px-4 py-3 rounded-full hover:bg-black hover:scale-105 transition-all shadow-md shadow-gray-200 group/btn">
+                            Ver Demo <i data-lucide="arrow-up-right" class="w-3 h-3 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform"></i>
+                        </a>
+                    {% endif %}
+                    {% if project.github %} <!-- Assumindo que você pode adicionar campo github no futuro, senão remova isso -->
+                        <a href="{{ project.github }}" target="_blank"
+                            class="flex items-center justify-center gap-2 text-[0.65rem] font-medium uppercase tracking-widest text-gray-500 hover:text-black transition-colors px-4 py-3 rounded-full hover:bg-gray-100 border border-gray-200 group/gh {% if not project.video %}flex-1{% endif %}">
+                            <i data-lucide="github" class="w-3.5 h-3.5 group-hover/gh:scale-110 transition-transform"></i>
+                            <span {% if project.video %}class="hidden lg:inline"{% endif %}>Código</span>
+                        </a>
+                    {% endif %}
+                    {% if not project.video %}
+                        <span class="text-[0.6rem] font-semibold uppercase tracking-widest text-gray-400 px-3 py-3 border border-gray-200 rounded-full flex-1 text-center bg-gray-50">Confidencial</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <!-- Empty state without Alpine if there are NO projects in DB -->
+        <div class="col-span-full flex flex-col items-center justify-center py-32 gap-4">
+            <div class="flex items-center justify-center w-16 h-16 rounded-full border border-gray-200 bg-gray-50">
+                <i data-lucide="folder-search" class="w-6 h-6 text-gray-400"></i>
+            </div>
+            <p class="text-gray-500 text-sm">Nenhum projeto cadastrado no sistema ainda.</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Empty state for Alpine Filter -->
+    <div x-show="visibleCount === 0" style="display: none;" x-transition class="flex flex-col items-center justify-center py-32 gap-4 col-span-full w-full">
+        <div class="flex items-center justify-center w-16 h-16 rounded-full border border-gray-200 bg-gray-50">
+            <i data-lucide="search-x" class="w-6 h-6 text-gray-400"></i>
+        </div>
+        <p class="text-gray-500 text-sm">Nenhum projeto encontrado nesta categoria.</p>
+        <button @click="activeFilter = 'all'" class="text-[0.7rem] font-medium uppercase tracking-widest text-blue-600 hover:text-blue-800 transition-colors">
+            Limpar filtro →
+        </button>
+    </div>
+
+    <!-- CTA: Contact -->
+    <div class="mt-32 relative overflow-hidden rounded-[2.5rem] bg-[#08090A] px-8 py-16 lg:px-20 lg:py-20 flex flex-col lg:flex-row items-center justify-between gap-10">
+        <!-- Background decoration -->
+        <div class="absolute top-0 right-0 w-[40%] h-full opacity-10" style="background: radial-gradient(ellipse at top right, #3b82f6 0%, transparent 70%);"></div>
+        <div class="absolute bottom-0 left-0 w-[30%] h-full opacity-10" style="background: radial-gradient(ellipse at bottom left, #8b5cf6 0%, transparent 70%);"></div>
+
+        <div class="relative z-10 max-w-2xl">
+            <p class="text-[0.65rem] font-semibold uppercase tracking-[0.25em] text-gray-400 mb-4">Próximo Passo</p>
+            <h3 class="text-4xl lg:text-5xl font-medium tracking-tight text-white leading-[1.1] mb-6">
+                Tem um projeto em mente?
+            </h3>
+            <p class="text-lg md:text-xl font-normal text-gray-400 leading-relaxed">
+                Vamos transformar sua ideia em um sistema robusto e bem construído. Estou disponível para novos desafios.
+            </p>
+        </div>
+        <div class="relative z-10 flex flex-col sm:flex-row items-center gap-4 shrink-0">
+            <a href="mailto:contato@matheustack.dev" class="inline-flex items-center gap-3 bg-white text-[#08090A] px-8 py-4 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-gray-100 hover:scale-105 transition-all shadow-2xl group">
+                Entrar em Contato <i data-lucide="arrow-up-right" class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+            </a>
+            <a href="{% url 'home' %}" class="inline-flex items-center gap-2 text-[0.7rem] font-medium uppercase tracking-widest text-gray-400 hover:text-white transition-colors px-4 py-4 group">
+                <i data-lucide="arrow-left" class="w-4 h-4 group-hover:-translate-x-1 transition-transform"></i>
+                Voltar ao Início
+            </a>
+        </div>
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,94 @@
+<section id="projects" class="lg:px-16 xl:px-24 pt-24 pr-8 pb-32 pl-8 border-t border-gray-200/50">
+    <div class="flex flex-col gap-2 mb-20 relative z-10 w-full" x-data="{ visible: false }" x-intersect.once="visible = true">
+        <span class="text-[0.65rem] font-semibold uppercase tracking-[0.25em] text-gray-400 transition-all duration-700 transform" :class="visible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'">Portfólio</span>
+        <h2 class="text-4xl lg:text-5xl font-medium tracking-tight text-gray-900 transition-all duration-700 delay-100 transform" :class="visible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'">Projetos em Destaque</h2>
+    </div>
+
+    {% if top_projects %}
+    <div class="space-y-32">
+        {% for project in top_projects %}
+        <div class="group grid grid-cols-1 lg:grid-cols-2 gap-12 xl:gap-20 items-center" x-data="{ visible: false }" x-intersect.once.threshold.20="visible = true">
+
+            {% if forloop.counter|divisibleby:2 %}
+
+                <!-- Content (Left on Desktop) -->
+                <div class="flex flex-col justify-center items-start lg:pl-12 order-2 lg:order-1 transition-all duration-1000 transform" :class="visible ? 'translate-x-0 opacity-100' : '-translate-x-12 opacity-0'">
+                    <div class="inline-flex items-center gap-2 mb-6 flex-wrap">
+                        {% for tech in project.techs.all %}
+                        <span class="text-[0.6rem] font-semibold uppercase tracking-widest bg-white/50 text-gray-700 px-4 py-2 rounded-full border border-gray-200 shadow-sm backdrop-blur-sm">{{ tech.name }}</span>
+                        {% endfor %}
+                    </div>
+                    <h3 class="text-4xl lg:text-5xl font-medium tracking-tight text-gray-900 mb-6 group-hover:text-purple-600 transition-colors duration-300">
+                        {{ project.name }}
+                    </h3>
+                    <p class="text-lg text-gray-500 leading-relaxed font-normal mb-8">
+                        {{ project.description }}
+                    </p>
+                    <a href="{% if project.demo %}{{ project.demo }}{% elif project.github %}{{ project.github }}{% else %}#{% endif %}"
+                       class="inline-flex items-center gap-3 bg-[#1A1A1A] text-white px-8 py-4 rounded-full text-xs font-medium uppercase tracking-widest hover:bg-black hover:scale-105 transition-all shadow-xl shadow-gray-300 group/btn">
+                        Ver Detalhes <i data-lucide="arrow-right" class="w-4 h-4 group-hover/btn:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+
+                <!-- Image (Right on Desktop) -->
+                <div class="aspect-square lg:aspect-[4/3] overflow-hidden flex bg-gray-200 w-full rounded-[2.5rem] relative shadow-inner items-center justify-center order-1 lg:order-2 transition-all duration-1000 delay-300 transform" :class="visible ? 'translate-x-0 opacity-100' : 'translate-x-12 opacity-0'" x-data="{ hovered: false }" @mouseenter="hovered = true" @mouseleave="hovered = false">
+                    <div class="absolute top-[-20%] right-[-20%] w-[70%] h-[70%] bg-purple-500 rounded-full blur-3xl opacity-20 transition-opacity duration-500" :class="hovered ? 'opacity-40' : 'opacity-20'"></div>
+                    <div class="overflow-hidden transform transition-transform duration-500 bg-gray-800 w-[90%] h-[90%] border-purple-600 border-8 rounded-[2rem] relative shadow-2xl group-hover:scale-[1.02]">
+                        <div class="w-full h-full bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center relative">
+                            {% if project.image %}
+                            <img src="{{ project.image.url }}" alt="{{ project.name }}" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500">
+                            {% else %}
+                            <span class="relative z-10 text-white text-xl font-medium tracking-wider bg-black/50 px-6 py-3 rounded-full backdrop-blur-md border border-white/10 group-hover:scale-105 transition-transform duration-300">{{ project.name }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+            {% else %}
+
+                <!-- Image (Left) -->
+                <div class="aspect-square lg:aspect-[4/3] overflow-hidden flex bg-gray-200 w-full rounded-[2.5rem] relative shadow-inner items-center justify-center transition-all duration-1000 transform" :class="visible ? 'translate-x-0 opacity-100' : '-translate-x-12 opacity-0'" x-data="{ hovered: false }" @mouseenter="hovered = true" @mouseleave="hovered = false">
+                    <div class="absolute top-[-20%] left-[-20%] w-[70%] h-[70%] bg-blue-500 rounded-full blur-3xl opacity-20 transition-opacity duration-500" :class="hovered ? 'opacity-40' : 'opacity-20'"></div>
+                    <div class="overflow-hidden transform transition-transform duration-500 bg-gray-800 w-[90%] h-[90%] border-blue-600 border-8 rounded-[2rem] relative shadow-2xl group-hover:scale-[1.02]">
+                        <div class="w-full h-full bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center relative">
+                            {% if project.image %}
+                            <img src="{{ project.image.url }}" alt="{{ project.name }}" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500">
+                            {% else %}
+                            <span class="relative z-10 text-white text-xl font-medium tracking-wider bg-black/50 px-6 py-3 rounded-full backdrop-blur-md border border-white/10 group-hover:scale-105 transition-transform duration-300">{{ project.name }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content (Right) -->
+                <div class="flex flex-col justify-center items-start lg:pr-12 transition-all duration-1000 delay-300 transform" :class="visible ? 'translate-x-0 opacity-100' : 'translate-x-12 opacity-0'">
+                    <div class="inline-flex items-center gap-2 mb-6 flex-wrap">
+                        {% for tech in project.techs.all %}
+                        <span class="text-[0.6rem] font-semibold uppercase tracking-widest bg-white/50 text-gray-700 px-4 py-2 rounded-full border border-gray-200 shadow-sm backdrop-blur-sm">{{ tech.name }}</span>
+                        {% endfor %}
+                    </div>
+                    <h3 class="text-4xl lg:text-5xl font-medium tracking-tight text-gray-900 mb-6 group-hover:text-blue-600 transition-colors duration-300">
+                        {{ project.name }}
+                    </h3>
+                    <p class="text-lg text-gray-500 leading-relaxed font-normal mb-8">
+                        {{ project.description }}
+                    </p>
+                    <a href="{% if project.demo %}{{ project.demo }}{% elif project.github %}{{ project.github }}{% else %}#{% endif %}"
+                       class="inline-flex items-center gap-3 bg-[#1A1A1A] text-white px-8 py-4 rounded-full text-xs font-medium uppercase tracking-widest hover:bg-black hover:scale-105 transition-all shadow-xl shadow-gray-300 group/btn">
+                        Ver Detalhes <i data-lucide="arrow-right" class="w-4 h-4 group-hover/btn:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- More Projects Button -->
+    <div class="mt-24 flex justify-center w-full" x-data="{ visible: false }" x-intersect.once="visible = true">
+        <a href="{% url 'projects' %}" class="inline-flex items-center gap-3 bg-white border border-gray-200 text-[#0A0A0A] px-10 py-5 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-gray-50 hover:scale-105 hover:shadow-xl transition-all shadow-md group transition-all duration-700 transform" :class="visible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'">
+            Ver Todos os Projetos <i data-lucide="layout-grid" class="w-4 h-4 group-hover:rotate-12 transition-transform"></i>
+        </a>
+    </div>
+</section>

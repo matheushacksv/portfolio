@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+
+<!-- Hero Section -->
+<section class="grid grid-cols-1 lg:grid-cols-2 min-h-[80vh] items-center">
+    <!-- Left: Content -->
+    <div class="relative flex flex-col justify-center px-8 py-12 lg:px-16 xl:px-24 z-10">
+        <div class="inline-flex items-center gap-2 bg-blue-600 text-white px-4 py-1.5 rounded-full mb-8 self-start shadow-xl shadow-blue-500/20">
+            <span class="text-[0.6rem] font-bold uppercase tracking-widest">Fullstack Developer</span>
+        </div>
+        
+        <div class="relative mb-8">
+            <h1 class="text-6xl lg:text-7xl xl:text-8xl font-semibold tracking-tighter leading-[0.9] text-[#0A0A0A] font-['Plus_Jakarta_Sans']">
+                TRANSFOR<br/>MANDO<br/>
+                <span class="text-blue-600">IDEIAS</span> EM<br/>
+                SISTEMAS
+            </h1>
+        </div>
+
+        <div class="max-w-xl">
+            <p class="text-lg text-gray-500 leading-relaxed font-normal mb-10">
+                Especialista em construir experiências digitais de ponta a ponta, unindo design intuitivo com arquiteturas robustas e escaláveis.
+            </p>
+            
+            <div class="flex flex-wrap items-center gap-6">
+                <a href="{% url 'projects' %}" class="flex items-center gap-3 bg-black text-white px-8 py-4 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-gray-800 hover:scale-105 transition-all shadow-2xl shadow-gray-400/20">
+                    Ver Projetos <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Tech Badges Floating -->
+        <div class="mt-16 flex items-center gap-4">
+            <div class="flex -space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-white shadow-lg flex items-center justify-center border border-gray-100 hover:-translate-y-2 transition-transform cursor-default p-2" title="Python">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">
+                </div>
+                <div class="w-10 h-10 rounded-xl bg-white shadow-lg flex items-center justify-center border border-gray-100 hover:-translate-y-2 transition-transform cursor-default p-2" title="Django">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" alt="Django">
+                </div>
+                <div class="w-10 h-10 rounded-xl bg-white shadow-lg flex items-center justify-center border border-gray-100 hover:-translate-y-2 transition-transform cursor-default p-2" title="JavaScript">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JS">
+                </div>
+                <div class="w-10 h-10 rounded-xl bg-white shadow-lg flex items-center justify-center border border-gray-100 hover:-translate-y-2 transition-transform cursor-default p-2" title="Tailwind">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind">
+                </div>
+                <div class="w-10 h-10 rounded-xl bg-white shadow-lg flex items-center justify-center border border-gray-100 hover:-translate-y-2 transition-transform cursor-default p-2" title="HTMX">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/htmx/htmx-original.svg" alt="HTMX"> 
+                </div>
+                <div class="w-10 h-10 rounded-xl bg-white shadow-lg flex items-center justify-center border border-gray-100 hover:-translate-y-2 transition-transform cursor-default p-2" title="Linux">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg" alt="Linux">  
+                </div>
+                <div class="w-10 h-10 rounded-xl bg-white shadow-lg flex items-center justify-center border border-gray-100 hover:-translate-y-2 transition-transform cursor-default p-2" title="Alpine.js">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/alpinejs/alpinejs-original.svg" alt="Alpine.js"/>
+                </div>
+                <div class="w-10 h-10 rounded-xl bg-white shadow-lg flex items-center justify-center border border-gray-100 hover:-translate-y-2 transition-transform cursor-default p-2" title="Docker">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" alt="Docker"/>
+                </div>
+                <div class="w-10 h-10 rounded-xl bg-white shadow-lg flex items-center justify-center border border-gray-100 hover:-translate-y-2 transition-transform cursor-default p-2" title="Git">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" alt="Git"/>
+                </div>
+                <div class="w-10 h-10 rounded-xl bg-white shadow-lg flex items-center justify-center border border-gray-100 hover:-translate-y-2 transition-transform cursor-default p-2" title="Postgres">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" alt="Postgres"/>
+                </div>
+                <div class="w-10 h-10 rounded-xl bg-white shadow-lg flex items-center justify-center border border-gray-100 hover:-translate-y-2 transition-transform cursor-default p-2" title="MongoDB">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg" alt="MongoDB"/>
+                </div>
+                <div class="w-10 h-10 rounded-xl bg-white shadow-lg flex items-center justify-center border border-gray-100 hover:-translate-y-2 transition-transform cursor-default p-2" title="Pandas">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg" alt="Pandas"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right: Visual -->
+    <div class="relative h-[60vh] lg:h-full overflow-hidden lg:rounded-tl-[5rem] group bg-stone-200">
+        <!-- Placeholder for a premium visual - using a gradient mixed with some floating cards -->
+        <div class="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 active-group"></div>
+        
+        <!-- Abstract UI Components -->
+        <div class="absolute inset-0 flex items-center justify-center">
+            <div class="relative w-full h-full p-12">
+                <!-- Large card -->
+                <div class="absolute top-[15%] right-[10%] w-[80%] aspect-video bg-white rounded-3xl shadow-2xl p-6 border border-white/50 backdrop-blur-sm transform rotate-3 hover:rotate-0 transition-transform duration-700">
+                    <div class="flex gap-2 mb-4">
+                        <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="h-4 bg-gray-100 rounded-full w-3/4"></div>
+                        <div class="h-20 bg-blue-50/50 rounded-2xl border border-blue-100 flex items-center justify-center">
+                             <span class="text-blue-400 font-mono text-xs opacity-50">&lt;coding_in_progress /&gt;</span>
+                        </div>
+                        <div class="grid grid-cols-3 gap-4">
+                            <div class="h-8 bg-gray-50 rounded-xl"></div>
+                            <div class="h-8 bg-gray-50 rounded-xl"></div>
+                            <div class="h-8 bg-gray-50 rounded-xl"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Floating circles/blobs -->
+                
+                <div class="absolute top-[40%] left-[5%] w-16 h-16 bg-black rounded-2xl shadow-2xl transform rotate-12 flex items-center justify-center">
+                     <i data-lucide="code-2" class="w-8 h-8 text-white"></i>
+                </div>
+
+                <!-- Gradient glow -->
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-blue-500/20 blur-[120px] -z-10 rounded-full"></div>
+            </div>
+        </div>
+        
+        <!-- Overlay label -->
+        <div class="absolute bottom-12 right-12">
+            <div class="px-6 py-3 rounded-full border border-white/40 bg-white/20 backdrop-blur-xl text-black text-[0.65rem] font-bold uppercase tracking-widest cursor-default">
+                Fullstack Architecture
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Projects Section -->
+{% include 'partials/_projects.html' %}
+
+{% endblock %}
