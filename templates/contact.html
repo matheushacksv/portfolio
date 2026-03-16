@@ -19,19 +19,7 @@
 <section class="lg:px-16 xl:px-24 pr-8 pl-8 py-20 flex flex-col lg:grid lg:grid-cols-12 gap-16 xl:gap-24">
     
     <!-- Left: Contact Form -->
-    <div class="lg:col-span-7" x-data="{ 
-        sending: false, 
-        success: false,
-        submitForm() {
-            this.sending = true;
-            // Simulando o processo assíncrono (Celery + Background Task)
-            setTimeout(() => {
-                this.sending = false;
-                this.success = true;
-                this.$refs.contactForm.reset();
-            }, 3000);
-        }
-    }">
+    <div class="lg:col-span-7" x-data="contactForm">
         <div class="mb-10">
             <h2 class="text-3xl font-medium tracking-tight text-gray-900 mb-4">Envie uma mensagem</h2>
             <p class="text-gray-500 leading-relaxed max-w-lg">
@@ -40,6 +28,7 @@
         </div>
 
         <form x-ref="contactForm" @submit.prevent="submitForm" class="space-y-6 relative">
+            {% csrf_token %}
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Name -->
                 <div class="flex flex-col gap-2">
@@ -59,6 +48,7 @@
             <div class="flex flex-col gap-2">
                 <label for="subject" class="text-[0.65rem] font-bold uppercase tracking-widest text-gray-400">Assunto</label>
                 <select id="subject" name="subject" class="px-6 py-4 rounded-2xl bg-gray-50 border border-gray-200 focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all text-sm appearance-none cursor-pointer">
+                    <option value="" selected disabled hidden>Selecione..</option>
                     <option value="project">Novo Projeto</option>
                     <option value="consultancy">Consultoria Técnica</option>
                     <option value="job">Oportunidade de Trabalho</option>
@@ -77,15 +67,20 @@
             <div class="pt-4 overflow-hidden">
                 <button type="submit" :disabled="sending || success"
                     class="w-full md:w-auto flex items-center justify-center gap-3 bg-[#1A1A1A] text-white px-10 py-5 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-black hover:scale-[1.02] active:scale-95 transition-all shadow-xl shadow-gray-200 disabled:opacity-50 disabled:cursor-not-allowed group">
-                    <span x-show="!sending && !success">Enviar Mensagem</span>
-                    <span x-show="sending" class="flex items-center gap-2">
-                        <svg class="animate-spin h-4 w-4 text-white" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                        Processando...
+                    
+                    <!-- Text Content -->
+                    <span x-text="sending ? 'Processando...' : (success ? 'Mensagem Enviada!' : 'Enviar Mensagem')">
+                        Enviar Mensagem
                     </span>
-                    <span x-show="success">Mensagem Enviada!</span>
+
+                    <!-- Loading Spinner -->
+                    <svg x-show="sending" class="animate-spin h-4 w-4 text-white" viewBox="0 0 24 24" x-cloak>
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+
+                    <!-- Success/Send Icons -->
+                    <i data-lucide="check" class="w-4 h-4 text-emerald-400" x-show="success" x-cloak></i>
                     <i data-lucide="send" class="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" x-show="!sending && !success"></i>
                 </button>
             </div>
@@ -172,8 +167,21 @@
                         </div>
                     </div>
                     <i data-lucide="external-link" class="w-4 h-4 text-gray-300 group-hover:text-black"></i>
-                </a>
-                
+                </a> 
+
+                <!-- WhatsApp -->
+              <a href="https://wa.me/5548996436646?text=Oi%2C%20vi%20seu%20portf%C3%B3lio%20e%20quero%20conversar" target="_blank" class="flex items-center justify-between p-6 rounded-2xl border border-gray-100 hover:border-gray-900 hover:bg-gray-50 transition-all group">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-gray-50 flex items-center justify-center border border-gray-100 group-hover:bg-black group-hover:border-black transition-all">
+                            <i data-lucide="phone" class="w-5 h-5 text-blue-400 group-hover:text-white transition-colors"></i>
+                        </div>
+                        <div>
+                            <p class="text-[0.6rem] font-bold uppercase tracking-widest text-gray-400 group-hover:text-black transition-colors">WhatsApp</p>
+                            <p class="text-sm font-medium text-gray-900 group-hover:translate-x-1 transition-transform">+55 48 996436646</p>
+                        </div>
+                    </div>
+                    <i data-lucide="external-link" class="w-4 h-4 text-gray-300 group-hover:text-black"></i>
+                </a> 
             </div>
         </div>
     </div>
@@ -194,5 +202,43 @@
         </a>
     </div>
 </section>
+
+
+<script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('contactForm', () => ({
+            sending: false,
+            success: false,
+            submitForm() {
+                this.sending = true;
+                const formData = new FormData(this.$refs.contactForm);
+                
+                fetch("{% url 'contact' %}", {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRFToken': formData.get('csrfmiddlewaretoken')
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) throw new Error('Erro na resposta do servidor');
+                    return response.json();
+                })
+                .then(data => {
+                    this.sending = false;
+                    if (data.success) {
+                        this.success = true;
+                        this.$refs.contactForm.reset();
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao enviar formulário:', error);
+                    this.sending = false;
+                    alert('Ocorreu um erro ao enviar sua mensagem. Por favor, tente novamente.');
+                });
+            }
+        }));
+    });
+</script>
 
 {% endblock %}

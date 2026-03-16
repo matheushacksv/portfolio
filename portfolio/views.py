@@ -1,5 +1,7 @@
 from django.shortcuts import render
+from django.http import JsonResponse
 from .models import Project, Experience
+from .tasks import enviar_email_contato, novo_contato
 
 
 def home(request):
@@ -37,4 +39,18 @@ def sobre_view(request):
 
 
 def contact_view(request):
+
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        assunto = request.POST.get('subject')
+        mensagem = request.POST.get('message')
+
+        enviar_email_contato.delay(email)
+        novo_contato.delay(email='matheushacksv@gmail.com', email_do_contato=email, name=name, objetivo=assunto, mensagem=mensagem)
+
+        return JsonResponse({'success': True})
+
+
     return render(request, 'contact.html')
+

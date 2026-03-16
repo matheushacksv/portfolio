@@ -5,6 +5,10 @@ window.Alpine = Alpine;
 Alpine.plugin(intersect);
 Alpine.start();
 
+if (window.lucide) {
+    window.lucide.createIcons();
+}
+
 if (window.initFlowbite) {
     window.initFlowbite();
 }

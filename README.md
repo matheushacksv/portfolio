@@ -8,5 +8,5 @@ Tecnologias utilizadas:
 * Tailwind CSS
 * PostgreSQL
 * RabbitMQ
-* Nginx
-* Uvicorn
+* Gunicorn
+* Whitenoise
