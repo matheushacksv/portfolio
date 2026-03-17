@@ -33,21 +33,21 @@
                 <!-- Name -->
                 <div class="flex flex-col gap-2">
                     <label for="name" class="text-[0.65rem] font-bold uppercase tracking-widest text-gray-400">Nome Completo</label>
-                    <input type="text" id="name" name="name" required placeholder="Ex: João Silva" 
-                        class="px-6 py-4 rounded-2xl bg-gray-50 border border-gray-200 focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all text-sm">
+                    <input type="text" id="name" name="name" required placeholder="Ex: João Silva" :disabled="success"
+                        class="px-6 py-4 rounded-2xl bg-gray-50 border border-gray-200 focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all text-sm disabled:opacity-50">
                 </div>
                 <!-- Email -->
                 <div class="flex flex-col gap-2">
                     <label for="email" class="text-[0.65rem] font-bold uppercase tracking-widest text-gray-400">Endereço de E-mail</label>
-                    <input type="email" id="email" name="email" required placeholder="joao@exemplo.com"
-                        class="px-6 py-4 rounded-2xl bg-gray-50 border border-gray-200 focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all text-sm">
+                    <input type="email" id="email" name="email" required placeholder="joao@exemplo.com" :disabled="success"
+                        class="px-6 py-4 rounded-2xl bg-gray-50 border border-gray-200 focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all text-sm disabled:opacity-50">
                 </div>
             </div>
 
             <!-- Subject -->
             <div class="flex flex-col gap-2">
                 <label for="subject" class="text-[0.65rem] font-bold uppercase tracking-widest text-gray-400">Assunto</label>
-                <select id="subject" name="subject" class="px-6 py-4 rounded-2xl bg-gray-50 border border-gray-200 focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all text-sm appearance-none cursor-pointer">
+                <select id="subject" name="subject" :disabled="success" class="px-6 py-4 rounded-2xl bg-gray-50 border border-gray-200 focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all text-sm appearance-none cursor-pointer disabled:opacity-50">
                     <option value="" selected disabled hidden>Selecione..</option>
                     <option value="project">Novo Projeto</option>
                     <option value="consultancy">Consultoria Técnica</option>
@@ -59,13 +59,13 @@
             <!-- Message -->
             <div class="flex flex-col gap-2">
                 <label for="message" class="text-[0.65rem] font-bold uppercase tracking-widest text-gray-400">Sua Mensagem</label>
-                <textarea id="message" name="message" required rows="6" placeholder="Como posso te ajudar?"
-                    class="px-6 py-4 rounded-3xl bg-gray-50 border border-gray-200 focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all text-sm resize-none"></textarea>
+                <textarea id="message" name="message" required rows="6" placeholder="Como posso te ajudar?" :disabled="success"
+                    class="px-6 py-4 rounded-3xl bg-gray-50 border border-gray-200 focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all text-sm resize-none disabled:opacity-50"></textarea>
             </div>
 
             <!-- Submit Button -->
             <div class="pt-4 overflow-hidden">
-                <button type="submit" :disabled="sending || success"
+                <button type="button" @click="submitForm" :disabled="sending || success"
                     class="w-full md:w-auto flex items-center justify-center gap-3 bg-[#1A1A1A] text-white px-10 py-5 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-black hover:scale-[1.02] active:scale-95 transition-all shadow-xl shadow-gray-200 disabled:opacity-50 disabled:cursor-not-allowed group">
                     <span x-text="sending ? 'Processando...' : (success ? 'Mensagem Enviada!' : 'Enviar Mensagem')">
                         Enviar Mensagem
@@ -199,14 +199,18 @@
             sending: false,
             success: false,
             submitForm() {
+                if(this.sending || this.success) return;
+                
                 this.sending = true;
-                const formData = new FormData(this.$refs.contactForm);
+                const formElement = this.$refs.contactForm;
+                const formData = new FormData(formElement);
                 
                 fetch("{% url 'contact' %}", {
                     method: 'POST',
                     body: formData,
                     headers: {
-                        'X-CSRFToken': formData.get('csrfmiddlewaretoken')
+                        'X-CSRFToken': formData.get('csrfmiddlewaretoken'),
+                        'X-Requested-With': 'XMLHttpRequest'
                     }
                 })
                 .then(response => {
@@ -217,14 +221,12 @@
                     this.sending = false;
                     if (data.success) {
                         this.success = true;
-                        this.$refs.contactForm.reset();
-                        setTimeout(() => this.success = false, 6000);
                     }
                 })
                 .catch(error => {
                     console.error('Erro ao enviar formulário:', error);
                     this.sending = false;
-                    alert('Ocorreu um erro ao enviar sua mensagem. Por favor, tente novamente.');
+                    alert('Ocorreu um erro ao enviar sua mensagem. Por favor, tente novamente mais tarde.');
                 });
             }
         }));
