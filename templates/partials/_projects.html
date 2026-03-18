@@ -73,9 +73,9 @@
                     <p class="text-lg text-gray-500 leading-relaxed font-normal mb-8">
                         {{ project.description }}
                     </p>
-                    <a href="{% if project.demo %}{{ project.demo }}{% elif project.github %}{{ project.github }}{% else %}#{% endif %}"
-                       class="inline-flex items-center gap-3 bg-[#1A1A1A] text-white px-8 py-4 rounded-full text-xs font-medium uppercase tracking-widest hover:bg-black hover:scale-105 transition-all shadow-xl shadow-gray-300 group/btn">
-                        Ver Detalhes <i data-lucide="arrow-right" class="w-4 h-4 group-hover/btn:translate-x-1 transition-transform"></i>
+                    <a href="{{project.github}}"
+                       class="inline-flex items-center gap-3 bg-[#1A1A1A] text-white px-8 py-4 rounded-full text-xs font-medium uppercase tracking-widest hover:bg-black hover:scale-105 transition-all shadow-xl shadow-gray-300 group/btn" target="_blank">
+                        Ver detalhes <i data-lucide="arrow-right" class="w-4 h-4 group-hover/btn:translate-x-1 transition-transform"></i>
                     </a>
                 </div>
 
